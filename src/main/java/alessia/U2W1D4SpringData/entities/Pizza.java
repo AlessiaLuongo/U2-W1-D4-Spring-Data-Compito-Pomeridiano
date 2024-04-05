@@ -1,11 +1,18 @@
 package alessia.U2W1D4SpringData.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
-
+@Entity
 @Getter
 @Setter
 public class Pizza implements IMenu {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String nome;
     private String mozzarella;
     private String pomodoro;
@@ -27,6 +34,7 @@ public class Pizza implements IMenu {
     @Override
     public String toString() {
         return "Pizza{" +
+                "id=" + id +
                 "nome='" + nome + '\'' +
                 ", mozzarella='" + mozzarella + '\'' +
                 ", pomodoro='" + pomodoro + '\'' +
