@@ -19,23 +19,14 @@ import java.util.List;
 @Configuration
 public class BeansConfig {
     @Primary
-    @Bean
-    public Pizza getPizzaMargherita(){
 
-        return new Pizza("Margherita", 1104, 4.99);
+    @Bean(name = "pizza_margherita")
+    public Pizza pizzaMargherita() {
+        List<Topping> tList = new ArrayList<>();
+        tList.add(getToppingCheese());
+        tList.add(getToppingPomodoro());
+        return new Pizza("Pizza Margherita", tList, 1104, 4.99);
     }
-
-    @Bean
-    Pizza getPizzaHawaii(){
-        return new Pizza("Hawaii", 1024, 6.49);
-    }
-
-    @Bean
-    Pizza getPizzaSalami(){
-        return  new Pizza("Salami", 1160, 5.99);
-    }
-
-
 
     @Primary
     @Bean
@@ -48,6 +39,12 @@ public class BeansConfig {
     public Topping getToppingCheese(){
 
         return new Topping("Cheese", 92, 0.69);
+    }
+
+    @Bean
+    public Topping getToppingPomodoro(){
+
+        return new Topping("Pomodoro", 52, 0.59);
     }
 
     @Bean
@@ -95,9 +92,8 @@ public class BeansConfig {
     @Bean
     public List<Pizza> pizzas(Pizza pizza){
        List<Pizza> pizzas = new ArrayList();
-       pizzas.add(getPizzaMargherita());
-       pizzas.add(getPizzaHawaii());
-       pizzas.add(getPizzaSalami());
+       pizzas.add(pizzaMargherita());
+
 
         return pizzas;
     }

@@ -1,11 +1,12 @@
 package alessia.U2W1D4SpringData.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -14,8 +15,8 @@ public class Pizza implements IMenu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
-    private String mozzarella;
-    private String pomodoro;
+    @OneToMany(mappedBy = "pizza")
+    private List<Topping> toppings = new ArrayList<>() ;
     private int calories;
     private double price;
 
@@ -23,10 +24,9 @@ public class Pizza implements IMenu {
     public Pizza() {
     }
 
-    public Pizza(String nome,int calories, double price) {
+    public Pizza(String nome, List<Topping> toppingList, int calories, double price) {
         this.nome = nome;
-        this.mozzarella = "Mozzarella";
-        this.pomodoro = "Pomodoro";
+        this.toppings = toppingList;
         this.calories = calories;
         this.price = price;
     }
@@ -36,8 +36,6 @@ public class Pizza implements IMenu {
         return "Pizza{" +
                 "id=" + id +
                 "nome='" + nome + '\'' +
-                ", mozzarella='" + mozzarella + '\'' +
-                ", pomodoro='" + pomodoro + '\'' +
                 ", calories=" + calories +
                 ", price=" + price +
                 '}';
